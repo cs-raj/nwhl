@@ -2,16 +2,16 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.5.3
-      - uses: actions/setup-node@v3.7.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: "18.x"
+          node-version: "16.x"
       - run: npm install
 
       - name: get-package-details
@@ -28,10 +28,15 @@ jobs:
           tag_prefix: "v"
       - name: Create Release
         if: steps.update_tag.outputs.tagname
+        uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        run:  gh release create v${{ steps.update_tag.outputs.version }} --title "Release ${{ steps.update_tag.outputs.version }}" --generate-notes
+        with:
+          tag_name: ${{ steps.update_tag.outputs.tagname }}
+          release_name: Release ${{ steps.update_tag.outputs.tagname }}
+          draft: false # Default value, but nice to set explicitly
+          prerelease: false # Default value, but nice to set explicitly
       - name: Upload Release Asset
         if: steps.update_tag.outputs.tagname
         id: upload-release-asset
