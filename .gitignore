@@ -22,3 +22,4 @@ example/logs
 !dist/**
 !.talismanrc
 !SECURITY.md
+!.github/**
