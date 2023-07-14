@@ -47,7 +47,7 @@ jobs:
           asset_path: ./contentstack-webhook-listener-${{ steps.package.outputs.version }}.tgz
           asset_name: contentstack-webhook-listener-${{ steps.package.outputs.version }}.tgz
           asset_content_type: application/tgz
-      - name: gen-notes
+      - name: gen notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         run: gh release create v${{ steps.update_tag.outputs.version }} --title "Release ${{ steps.update_tag.outputs.version }}" --generate-notes
