@@ -1,6 +1,6 @@
 {
   "name": "webhook_rk_1",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "HTTP web server that listens to Contentstack webhooks. This is part of Contentstack DataSync",
   "main": "./dist",
   "types": "./typings",
